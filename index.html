@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fanarc — Under Construction</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      background: url('https://images.unsplash.com/photo-1520975922071-1e67a58a0a5b?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .floating-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .floating-postcard {
+      position: absolute;
+      background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(124,58,237,0.05));
+      border-radius: 12px;
+      filter: blur(8px);
+      opacity: 0.4;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+      animation: float 30s infinite linear;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .postcard-small {
+      width: 80px;
+      height: 100px;
+    }
+
+    .postcard-medium {
+      width: 120px;
+      height: 140px;
+    }
+
+    .postcard-large {
+      width: 160px;
+      height: 180px;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      height: 20px;
+    }
+
+    .profile-circle {
+      width: 16px;
+      height: 16px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .name-placeholder {
+      height: 8px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      flex: 1;
+    }
+
+    .media-placeholder {
+      background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(124,58,237,0.1));
+      border-radius: 8px;
+      flex: 1;
+      min-height: 40px;
+    }
+
+    .post-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      height: 20px;
+    }
+
+    .footer-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+
+    .footer-bar.short {
+      width: 60%;
+    }
+
+    .floating-postcard:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      animation-duration: 35s;
+      animation-delay: 0s;
+    }
+
+    .floating-postcard:nth-child(2) {
+      top: 20%;
+      right: 8%;
+      animation-duration: 40s;
+      animation-delay: -5s;
+    }
+
+    .floating-postcard:nth-child(3) {
+      bottom: 30%;
+      left: 3%;
+      animation-duration: 25s;
+      animation-delay: -10s;
+    }
+
+    .floating-postcard:nth-child(4) {
+      bottom: 15%;
+      right: 5%;
+      animation-duration: 32s;
+      animation-delay: -15s;
+    }
+
+    .floating-postcard:nth-child(5) {
+      top: 60%;
+      left: 1%;
+      animation-duration: 28s;
+      animation-delay: -20s;
+    }
+
+    .floating-postcard:nth-child(6) {
+      top: 70%;
+      right: 3%;
+      animation-duration: 38s;
+      animation-delay: -25s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-20px) translateX(10px) rotate(1deg);
+      }
+      50% {
+        transform: translateY(-10px) translateX(-5px) rotate(-1deg);
+      }
+      75% {
+        transform: translateY(-30px) translateX(15px) rotate(0.5deg);
+      }
+      100% {
+        transform: translateY(0px) translateX(0px) rotate(0deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .floating-postcard:nth-child(n+4) {
+        display: none;
+      }
+      
+      .floating-postcard {
+        filter: blur(10px);
+        opacity: 0.3;
+      }
+      
+      .postcard-small {
+        width: 60px;
+        height: 75px;
+      }
+
+      .postcard-medium {
+        width: 90px;
+        height: 105px;
+      }
+
+      .postcard-large {
+        width: 120px;
+        height: 135px;
+      }
+
+      .profile-circle {
+        width: 12px;
+        height: 12px;
+      }
+
+      .name-placeholder {
+        height: 6px;
+      }
+
+      .footer-bar {
+        height: 3px;
+      }
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(12px) brightness(0.8);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #111827;
+      margin: 0 0 1rem;
+    }
+
+    h1 span {
+      color: #7C3AED; /* Fanarc violet */
+    }
+
+    p {
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 1.5rem;
+    }
+
+    .hint {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #6B7280;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 0.75rem 1.25rem;
+      background: #7C3AED;
+      color: white;
+      border-radius: 9999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #6D28D9;
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-background">
+    <div class="floating-postcard postcard-small">
+      <div class="post-header">
+        <div class="profile-circle"></div>
+        <div class="name-placeholder"></div>
+      </div>
+      <div class="media-placeholder"></div>
+      <div class="post-footer">
+        <div class="footer-bar"></div>
+        <div class="footer-bar short"></div>
+        <div class="footer-bar"></div>
+      </div>
+    </div>
+    <div class="floating-postcard postcard-medium">
+      <div class="post-header">
+        <div class="profile-circle"></div>
+        <div class="name-placeholder"></div>
+      </div>
+      <div class="media-placeholder"></div>
+      <div class="post-footer">
+        <div class="footer-bar"></div>
+        <div class="footer-bar short"></div>
+        <div class="footer-bar"></div>
+      </div>
+    </div>
+    <div class="floating-postcard postcard-large">
+      <div class="post-header">
+        <div class="profile-circle"></div>
+        <div class="name-placeholder"></div>
+      </div>
+      <div class="media-placeholder"></div>
+      <div class="post-footer">
+        <div class="footer-bar"></div>
+        <div class="footer-bar short"></div>
+        <div class="footer-bar"></div>
+      </div>
+    </div>
+    <div class="floating-postcard postcard-small">
+      <div class="post-header">
+        <div class="profile-circle"></div>
+        <div class="name-placeholder"></div>
+      </div>
+      <div class="media-placeholder"></div>
+      <div class="post-footer">
+        <div class="footer-bar"></div>
+        <div class="footer-bar short"></div>
+        <div class="footer-bar"></div>
+      </div>
+    </div>
+    <div class="floating-postcard postcard-medium">
+      <div class="post-header">
+        <div class="profile-circle"></div>
+        <div class="name-placeholder"></div>
+      </div>
+      <div class="media-placeholder"></div>
+      <div class="post-footer">
+        <div class="footer-bar"></div>
+        <div class="footer-bar short"></div>
+        <div class="footer-bar"></div>
+      </div>
+    </div>
+    <div class="floating-postcard postcard-large">
+      <div class="post-header">
+        <div class="profile-circle"></div>
+        <div class="name-placeholder"></div>
+      </div>
+      <div class="media-placeholder"></div>
+      <div class="post-footer">
+        <div class="footer-bar"></div>
+        <div class="footer-bar short"></div>
+        <div class="footer-bar"></div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay"></div>
+  <div class="card">
+    <h1><span>Fanarc</span> is under construction</h1>
+    <p>We're building something fun, personal, and a little bit different.<br/>  
+       Kind of like your favorite hangout spot — but online.</p>
+    <p class="hint">Closer than fans. More personal than you expect.</p>
+    <a class="button" href="mailto:info@fanarc.com">Stay in the loop</a>
+  </div>
+</body>
+</html>
